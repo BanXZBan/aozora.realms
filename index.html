@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4a90e2;
-            --secondary: #87ceeb;
-            --dark: #1a1a2e;
+            --primary: #ff0000;
+            --secondary: #8b0000;
+            --dark: #0a0a0a;
             --light: #f8f9fa;
-            --accent: #ffd166;
+            --accent: #ff4444;
         }
         
         * {
@@ -25,6 +25,7 @@
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -36,14 +37,14 @@
         
         /* Header Styles */
         header {
-            background-color: rgba(26, 26, 46, 0.95);
+            background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(139,0,0,0.8) 100%);
             backdrop-filter: blur(10px);
             padding: 15px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(74, 144, 226, 0.3);
+            border-bottom: 2px solid var(--primary);
         }
         
         .header-container {
@@ -54,16 +55,20 @@
         
         .logo {
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 900;
             color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
         }
         
         .logo i {
-            margin-right: 8px;
+            margin-right: 10px;
             font-size: 20px;
+            animation: pulse 2s infinite;
         }
         
         nav ul {
@@ -73,19 +78,25 @@
         
         nav ul li {
             margin-left: 25px;
+            position: relative;
         }
         
         nav ul li a {
             color: var(--light);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
         }
         
         nav ul li a:hover {
-            color: var(--primary);
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 15px rgba(255,0,0,0.5);
         }
         
         .mobile-menu {
@@ -96,29 +107,49 @@
         }
         
         .btn {
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
             font-size: 14px;
             display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: var(--light);
+            border: none;
+            box-shadow: 0 5px 15px rgba(255,0,0,0.3);
         }
         
         .btn-primary:hover {
-            background-color: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,0,0,0.5);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.9)), url('https://images.unsplash.com/photo-1532798369041-b33eb576ef16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');
+            background: linear-gradient(rgba(10,10,10,0.8), rgba(139,0,0,0.7)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
             background-size: cover;
             background-position: center;
             padding: 180px 0 100px;
@@ -134,8 +165,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(135, 206, 235, 0.1) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,0,0,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139,0,0,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255,68,68,0.1) 0%, transparent 50%);
+            animation: pulseBackground 8s ease-in-out infinite;
             z-index: 1;
         }
         
@@ -147,18 +181,23 @@
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: 64px;
             margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+            text-shadow: 0 0 20px rgba(255,0,0,0.5);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+            animation: slideInFromTop 1s ease-out;
         }
         
         .hero p {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 40px;
             color: #cccccc;
+            animation: slideInFromBottom 1s ease-out 0.3s both;
         }
         
         .hero-buttons {
@@ -166,143 +205,193 @@
             justify-content: center;
             gap: 20px;
             margin-top: 30px;
+            animation: slideInFromBottom 1s ease-out 0.6s both;
         }
         
         /* Categories Section */
         .categories {
-            padding: 80px 0;
-            background-color: rgba(255, 255, 255, 0.05);
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(139,0,0,0.1) 100%);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             position: relative;
         }
         
         .section-title h2 {
-            font-size: 36px;
+            font-size: 42px;
             color: var(--primary);
             margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(255,0,0,0.3);
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            width: 80px;
-            height: 3px;
+            width: 100px;
+            height: 4px;
             background: linear-gradient(45deg, var(--primary), var(--secondary));
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255,0,0,0.5);
         }
         
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
         
         .category-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
         
         .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
             border-color: var(--primary);
         }
         
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+        
         .category-icon {
-            font-size: 40px;
+            font-size: 50px;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255,0,0,0.5);
+            animation: float 3s ease-in-out infinite;
         }
         
         .category-card h3 {
             color: var(--light);
             margin-bottom: 15px;
-            font-size: 22px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .category-card p {
+            color: #cccccc;
         }
         
         /* Members Section */
         .members {
-            padding: 100px 0;
+            padding: 120px 0;
+            background: linear-gradient(135deg, rgba(139,0,0,0.1) 0%, rgba(10,10,10,0.9) 100%);
         }
         
         .members-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         
         .member-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
         }
         
         .member-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(255, 0, 0, 0.3);
             border-color: var(--primary);
         }
         
         .member-image {
-            height: 200px;
+            height: 300px;
             background-size: cover;
             background-position: center;
+            position: relative;
+            overflow: hidden;
         }
         
         .member-card:nth-child(1) .member-image {
-            background-image: url('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80');
+            background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80');
         }
         
         .member-card:nth-child(2) .member-image {
-            background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80');
+            background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');
         }
         
         .member-card:nth-child(3) .member-image {
-            background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1061&q=80');
+            background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');
         }
         
         .member-card:nth-child(4) .member-image {
-            background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-image: url('https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+        }
+        
+        .member-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(10,10,10,0.9));
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .member-card:hover .member-overlay {
+            transform: translateY(0);
         }
         
         .member-content {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
         }
         
         .member-content h3 {
             color: var(--primary);
             margin-bottom: 10px;
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(255,0,0,0.3);
         }
         
         .member-role {
-            color: var(--secondary);
-            margin-bottom: 10px;
-            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 16px;
         }
         
         .member-rating {
             color: var(--accent);
             margin-bottom: 15px;
+            font-size: 18px;
         }
         
         /* Resources Section */
         .resources {
-            padding: 100px 0;
-            background-color: rgba(255, 255, 255, 0.05);
+            padding: 120px 0;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(139,0,0,0.1) 100%);
         }
         
         .resources-grid {
@@ -313,41 +402,57 @@
         
         .resource-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
         .resource-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(255, 0, 0, 0.3);
             border-color: var(--primary);
         }
         
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+        
         .resource-icon {
-            font-size: 40px;
+            font-size: 50px;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255,0,0,0.5);
+            animation: float 3s ease-in-out infinite;
         }
         
         .resource-card h3 {
             color: var(--primary);
             margin-bottom: 15px;
-            font-size: 22px;
+            font-size: 24px;
+            font-weight: 700;
         }
         
         .resource-card p {
             color: #cccccc;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         /* Footer */
         footer {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 60px 0 30px;
-            border-top: 1px solid rgba(74, 144, 226, 0.3);
+            background: linear-gradient(135deg, rgba(139,0,0,0.8) 0%, rgba(10,10,10,0.95) 100%);
+            padding: 80px 0 30px;
+            border-top: 3px solid var(--primary);
         }
         
         .footer-grid {
@@ -359,8 +464,11 @@
         
         .footer-column h3 {
             color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 20px;
+            margin-bottom: 25px;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255,0,0,0.3);
         }
         
         .footer-column ul {
@@ -368,51 +476,113 @@
         }
         
         .footer-column ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-column ul li a {
             color: #cccccc;
             text-decoration: none;
             transition: all 0.3s ease;
+            display: block;
+            padding: 5px 0;
         }
         
         .footer-column ul li a:hover {
             color: var(--primary);
-            padding-left: 5px;
+            transform: translateX(10px);
+            text-shadow: 0 0 5px rgba(255,0,0,0.5);
         }
         
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .social-links a {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 0, 0, 0.1);
             color: var(--primary);
             border-radius: 50%;
             text-decoration: none;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            font-size: 18px;
         }
         
         .social-links a:hover {
-            background-color: var(--primary);
+            background: var(--primary);
             color: var(--dark);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255,0,0,0.5);
         }
         
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #777;
-            font-size: 14px;
+            font-size: 16px;
+        }
+        
+        /* Animations */
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255,0,0,0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 20px rgba(255,0,0,0.8);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255,0,0,0.5);
+            }
+        }
+        
+        @keyframes pulseBackground {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
         
         /* Responsive Styles */
@@ -443,7 +613,7 @@
             }
             
             .hero h1 {
-                font-size: 36px;
+                font-size: 42px;
             }
             
             .hero p {
@@ -453,6 +623,10 @@
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .section-title h2 {
+                font-size: 32px;
             }
         }
     </style>
@@ -484,9 +658,10 @@
     <section class="hero" id="home">
         <div class="container hero-content">
             <h1>King Aozora</h1>
-            <p>Sky Above All Editors</p>
+            <p>Sky Above All Editors - The Pirate King of Design</p>
             <div class="hero-buttons">
                 <a href="#gallery" class="btn btn-primary">Explore Gallery</a>
+                <a href="#packs" class="btn btn-primary">Get Resources</a>
             </div>
         </div>
     </section>
@@ -495,8 +670,8 @@
     <section class="categories" id="gallery">
         <div class="container">
             <div class="section-title">
-                <h2>Categories</h2>
-                <p>Explore our creative domains</p>
+                <h2>Our Domains</h2>
+                <p>Explore the territories of our creative empire</p>
             </div>
             <div class="categories-grid">
                 <div class="category-card">
@@ -504,21 +679,21 @@
                         <i class="fas fa-palette"></i>
                     </div>
                     <h3>Design</h3>
-                    <p>Creative visual designs and artworks</p>
+                    <p>Creative visual designs and artworks inspired by the Grand Line</p>
                 </div>
                 <div class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-film"></i>
                     </div>
                     <h3>Animation</h3>
-                    <p>Motion graphics and video edits</p>
+                    <p>Motion graphics and video edits with Devil Fruit powers</p>
                 </div>
                 <div class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-edit"></i>
                     </div>
                     <h3>Editing</h3>
-                    <p>Photo and video editing services</p>
+                    <p>Photo and video editing services with Haki mastery</p>
                 </div>
             </div>
         </div>
@@ -528,15 +703,20 @@
     <section class="members" id="members">
         <div class="container">
             <div class="section-title">
-                <h2>Aozora Division</h2>
-                <p>Meet our talented team members</p>
+                <h2>Aozora Pirates</h2>
+                <p>Meet the crew of the strongest design pirates</p>
             </div>
             <div class="members-grid">
                 <div class="member-card">
-                    <div class="member-image"></div>
+                    <div class="member-image">
+                        <div class="member-overlay">
+                            <h3>Aozora</h3>
+                            <div class="member-role">Pirate King of Murlog</div>
+                        </div>
+                    </div>
                     <div class="member-content">
                         <h3>Aozora</h3>
-                        <div class="member-role">King Of Murlog</div>
+                        <div class="member-role">Pirate King of Murlog</div>
                         <div class="member-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -544,13 +724,19 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
+                        <p>Conqueror's Haki of Design</p>
                     </div>
                 </div>
                 <div class="member-card">
-                    <div class="member-image"></div>
+                    <div class="member-image">
+                        <div class="member-overlay">
+                            <h3>Nerva</h3>
+                            <div class="member-role">First Commander</div>
+                        </div>
+                    </div>
                     <div class="member-content">
                         <h3>Nerva</h3>
-                        <div class="member-role">Commander</div>
+                        <div class="member-role">First Commander</div>
                         <div class="member-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -558,13 +744,19 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star-half-alt"></i>
                         </div>
+                        <p>Observation Haki Specialist</p>
                     </div>
                 </div>
                 <div class="member-card">
-                    <div class="member-image"></div>
+                    <div class="member-image">
+                        <div class="member-overlay">
+                            <h3>RyuuBann</h3>
+                            <div class="member-role">Second Commander</div>
+                        </div>
+                    </div>
                     <div class="member-content">
                         <h3>RyuuBann</h3>
-                        <div class="member-role">Commander</div>
+                        <div class="member-role">Second Commander</div>
                         <div class="member-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -572,10 +764,16 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
+                        <p>Armament Haki Master</p>
                     </div>
                 </div>
                 <div class="member-card">
-                    <div class="member-image"></div>
+                    <div class="member-image">
+                        <div class="member-overlay">
+                            <h3>Rammuz</h3>
+                            <div class="member-role">Vanguard</div>
+                        </div>
+                    </div>
                     <div class="member-content">
                         <h3>Rammuz</h3>
                         <div class="member-role">Vanguard</div>
@@ -586,6 +784,7 @@
                             <i class="fas fa-star"></i>
                             <i class="far fa-star"></i>
                         </div>
+                        <p>Fish-Man Karate Expert</p>
                     </div>
                 </div>
             </div>
@@ -596,8 +795,8 @@
     <section class="resources" id="packs">
         <div class="container">
             <div class="section-title">
-                <h2>Aozora Supplies</h2>
-                <p>Download resources for your creative projects</p>
+                <h2>Treasure Chest</h2>
+                <p>Plunder our resources for your creative journey</p>
             </div>
             <div class="resources-grid">
                 <div class="resource-card">
@@ -605,40 +804,32 @@
                         <i class="fas fa-paint-brush"></i>
                     </div>
                     <h3>Preset Ibispaint (IB)</h3>
-                    <p>Collection of Ibispaint presets for digital art</p>
-                    <a href="https://drive.google.com/drive/folders/1yT7lY1TXkTqqQfqtRA3rt13p4Er9D2GG" class="btn btn-primary" target="_blank">Download</a>
+                    <p>Devil Fruit powers for your digital art creations</p>
+                    <a href="https://drive.google.com/drive/folders/1yT7lY1TXkTqqQfqtRA3rt13p4Er9D2GG" class="btn btn-primary" target="_blank">Plunder</a>
                 </div>
                 <div class="resource-card">
                     <div class="resource-icon">
                         <i class="fas fa-film"></i>
                     </div>
                     <h3>Preset Alight Motion (AM)</h3>
-                    <p>Motion graphics presets for Alight Motion</p>
-                    <a href="https://drive.google.com/drive/folders/1zfehMg4Yd3PtpT-hzLxFObj1eO4Dr7ap" class="btn btn-primary" target="_blank">Download</a>
+                    <p>Gear Second speed for your motion graphics</p>
+                    <a href="https://drive.google.com/drive/folders/1zfehMg4Yd3PtpT-hzLxFObj1eO4Dr7ap" class="btn btn-primary" target="_blank">Plunder</a>
                 </div>
                 <div class="resource-card">
                     <div class="resource-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>Preset Pixellab (PL)</h3>
-                    <p>Text and design presets for Pixellab</p>
-                    <a href="https://drive.google.com/drive/folders/1gFmPhkj9P17N62_zREg0fULHrN1UfGOH" class="btn btn-primary" target="_blank">Download</a>
-                </div>
-                <div class="resource-card">
-                    <div class="resource-icon">
-                        <i class="fas fa-shapes"></i>
-                    </div>
-                    <h3>Logo Style</h3>
-                    <p>Various logo styles and templates</p>
-                    <a href="#" class="btn btn-primary">Explore</a>
+                    <p>Three Sword Style techniques for mobile design</p>
+                    <a href="https://drive.google.com/drive/folders/1gFmPhkj9P17N62_zREg0fULHrN1UfGOH" class="btn btn-primary" target="_blank">Plunder</a>
                 </div>
                 <div class="resource-card">
                     <div class="resource-icon">
                         <i class="fas fa-archive"></i>
                     </div>
                     <h3>RyuuBann Pack (2k+ Bahan)</h3>
-                    <p>Massive collection with 2000+ resources</p>
-                    <a href="https://drive.google.com/drive/folders/14JOw7Il6U_IcYFg9jJD1ExigGp4qnajX" class="btn btn-primary" target="_blank">Download</a>
+                    <p>The One Piece treasure of 2000+ resources</p>
+                    <a href="https://drive.google.com/drive/folders/14JOw7Il6U_IcYFg9jJD1ExigGp4qnajX" class="btn btn-primary" target="_blank">Plunder</a>
                 </div>
             </div>
         </div>
@@ -649,8 +840,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h3>Aozora Realm</h3>
-                    <p>Sky Above All Editors - A creative community for designers and editors.</p>
+                    <h3>Aozora Pirates</h3>
+                    <p>The strongest crew in the design seas, sailing towards the ultimate creative treasure.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -659,26 +850,26 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h3>Quick Links</h3>
+                    <h3>Navigation</h3>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#packs">Packs</a></li>
-                        <li><a href="#members">Members</a></li>
+                        <li><a href="#home">Grand Line</a></li>
+                        <li><a href="#gallery">New World</a></li>
+                        <li><a href="#packs">Treasure</a></li>
+                        <li><a href="#members">Crew</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Resources</h3>
                     <ul>
-                        <li><a href="https://drive.google.com/drive/folders/1yT7lY1TXkTqqQfqtRA3rt13p4Er9D2GG" target="_blank">Ibispaint Presets</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1zfehMg4Yd3PtpT-hzLxFObj1eO4Dr7ap" target="_blank">Alight Motion Presets</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1gFmPhkj9P17N62_zREg0fULHrN1UfGOH" target="_blank">Pixellab Presets</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/14JOw7Il6U_IcYFg9jJD1ExigGp4qnajX" target="_blank">RyuuBann Pack</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1yT7lY1TXkTqqQfqtRA3rt13p4Er9D2GG" target="_blank">Ibispaint Devil Fruits</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1zfehMg4Yd3PtpT-hzLxFObj1eO4Dr7ap" target="_blank">Alight Motion Haki</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1gFmPhkj9P17N62_zREg0fULHrN1UfGOH" target="_blank">Pixellab Swords</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/14JOw7Il6U_IcYFg9jJD1ExigGp4qnajX" target="_blank">One Piece Treasure</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>Website By : Don RyuuBann | &copy; 2023 Aozora Realm. All rights reserved.</p>
+                <p>Website By : Don RyuuBann | &copy; 2023 Aozora Pirates. All rights reserved. | We're gonna be King of the Designers!</p>
             </div>
         </div>
     </footer>
@@ -728,10 +919,16 @@
         // Observe elements for animation
         document.querySelectorAll('.category-card, .member-card, .resource-card').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
+        });
+        
+        // Add floating animation to icons
+        const icons = document.querySelectorAll('.category-icon, .resource-icon');
+        icons.forEach((icon, index) => {
+            icon.style.animationDelay = `${index * 0.2}s`;
         });
     </script>
 </body>
-        </html>
+</html>
